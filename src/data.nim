@@ -25,8 +25,9 @@ proc updateList*() {.async.} =
 
   let client = newAsyncHttpClient()
   await client.downloadFile(url, path)
-  packageList.loads(readFile(path))
+  client.close()
 
+  packageList.loads(readFile(path))
   lastFetched = now()
 
 proc searchTags(p: Package; search: string): bool =
