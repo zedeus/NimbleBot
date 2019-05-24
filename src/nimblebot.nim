@@ -21,7 +21,7 @@ proc help(b: Telebot, u: Command) {.async.} =
   sendText("Type @" & me.username.get & " to search for Nimble packages.")
 
 proc inlineHandler(b: Telebot, u: InlineQuery) {.async.} =
-  if u.query.len < 2: return
+  if u.query.len < 2 or u.query.len > 20: return
 
   await updateList()
 
