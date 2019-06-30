@@ -8,6 +8,7 @@ type
     name*: string
     tags*: seq[string]
     web*: string
+    url*: string
     description*: string
 
 const

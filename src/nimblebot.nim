@@ -42,7 +42,10 @@ proc inlineHandler(b: Telebot, u: InlineQuery) {.async.} =
       res.description = some(p.description)
       content &= "\n\n" & p.description
 
-    content &= "\n\n" & p.web
+    if p.web.len > 0:
+      content &= "\n\n" & p.web
+    else:
+      content &= "\n\n" & p.url
 
     var textContent = InputTextMessageContent(content)
     textContent.parseMode = some("html")
@@ -75,7 +78,7 @@ proc main =
 
   while true:
     try:
-      bot.poll(clean=true)
+      bot.poll(timeout=1000, clean=true)
     except IOError, OSError, SslError:
       let e = getCurrentException()
       echo e.name, " ", e.msg
